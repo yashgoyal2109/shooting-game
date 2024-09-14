@@ -36,13 +36,36 @@ class Projectile {
         c.fill();
     }
 
+    update() {
+        this.x += this.dx.x;
+        this.y += this.dx.y;
+        this.draw();
+    }
+
 }
 
-const newplayer = new Player(innerWidth/2,innerHeight/2,30,'blue');
-newplayer.draw();
+const newplayer = new Player(innerWidth/2,innerHeight/2,30,'white');
 
+
+const projectiles = [];
+
+function animate() {
+    requestAnimationFrame(animate);
+    c.clearRect(0,0,canvas.width,canvas.height);
+    newplayer.draw();
+    projectiles.forEach((projectile) => 
+        {
+        projectile.update();
+    })
+}
 
 window.addEventListener('click', (event)=>{
-    const shoot = new Projectile(event.clientX,event.clientY,10,'red',null);
-    shoot.draw();
-})
+    const angle = Math.atan2(event.clientY - canvas.height/2 , event.clientX - canvas.width/2);
+    const velocity = {
+        x : 8*Math.cos(angle),
+        y : 8*Math.sin(angle)
+    }
+    projectiles.push(new Projectile(innerWidth/2,innerHeight/2,6,'red',velocity)
+);});
+
+animate();
