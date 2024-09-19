@@ -95,16 +95,32 @@ function spawn() {
     },1000) 
 }
 
+
+let animateId;
+
 function animate() {
-    requestAnimationFrame(animate);
+    animateId = requestAnimationFrame(animate);
     c.clearRect(0,0,canvas.width,canvas.height);
     newplayer.draw();
     projectiles.forEach((projectile) => 
         {
         projectile.update();
+        if(projectile.x + projectile.radius < 0 || projectile.x - projectile.radius > canvas.width || projectile.y + projectile.radius > 0 ||  projectile.y - projectile.radius > canvas.height ) {
+            setTimeout(() => {
+                //objects remove from edges of screen
+                projectiles.splice(projectileIndex, 1);
+            }, 0)         
+        }
     })
     enemies.forEach((enemy, index)=>{
         enemy.update();
+
+        const dist = Math.hypot(newplayer.x - enemy.x, newplayer.y - enemy.y);
+
+        //end game
+        if(dist - enemy.radius - newplayer.radius < 1) {
+            cancelAnimationFrame(animateId);
+        }
 
         projectiles.forEach((projectile, projectileIndex) =>{
             const dist = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y);
