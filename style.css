@@ -1,9 +1,50 @@
 body {
     margin: 0;
     box-sizing: border-box;
-    background-color: black;
+    /* background-color: black; */
 }
 
 /* canvas {
     border: 1px solid black;
 } */
+
+.scores {
+    position: fixed;
+    color: white;
+    padding: 10px;
+    user-select: none;
+}
+
+.start {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* color: white; */
+    inset: 0;
+}
+
+.points {
+    background-color: white;
+    width: 40%;
+    padding: 20px;
+    text-align: center;
+}
+
+#value {
+    font-size: 30px;
+}
+
+.pointtext{
+    color: gray;
+}
+
+.startbutton {
+    background-color: blue;
+    width: 100%;
+    border: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 20px;
+    color: white;
+}
