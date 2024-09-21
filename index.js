@@ -7,7 +7,8 @@ canvas.height = innerHeight;
 
 const scoreEle = document.querySelector('#scoreEle');
 const startGame = document.querySelector(".startbutton");
-
+const startpanel = document.querySelector(".start");
+const bigScore = document.querySelector("#value");
 
 class Player {
     constructor(x,y,radius,color) {
@@ -99,13 +100,22 @@ class Particle {
     }
 }
 
-const newplayer = new Player(innerWidth/2,innerHeight/2,10,'white');
+let newplayer = new Player(innerWidth/2,innerHeight/2,10,'white');
+let projectiles = [];
+let enemies = [];
+let particles = [];
 
-const projectiles = [];
-const enemies = [];
-const particles = [];
+function init() {
+    newplayer = new Player(innerWidth/2,innerHeight/2,10,'white');
+    projectiles = [];
+    enemies = [];
+    particles = [];
+    score = 0;
+    scoreEle.innerHTML = score;
+    bigScore.innerHTML = score;
 
 
+}
 function spawn() {
     setInterval(()=>{
         const radius = Math.random() * (30-10)+10;
@@ -166,6 +176,8 @@ function animate() {
 
         //end game
         if(dist - enemy.radius - newplayer.radius < 1) {
+            startpanel.style.display = 'flex';
+            bigScore.innerHTML = score;
             cancelAnimationFrame(animateId);
         }
 
@@ -173,7 +185,7 @@ function animate() {
             const dist = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y);
             if(dist - enemy.radius - projectile.radius < 1) {
 
-
+                playSoundEffect(hitSound);
                 //create explosions
                 for (let i = 0; i < enemy.radius*2; i++) {
                     particles.push(new Particle(projectile.x, projectile.y, Math.random() * 2, enemy.color, 
@@ -207,6 +219,53 @@ function animate() {
     })
 }
 
+
+// Audio context
+const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+// Audio buffers
+let backgroundMusic;
+let shootSound;
+let hitSound;
+
+// Load audio files
+function loadSound(url) {
+    return fetch(url)
+        .then(response => response.arrayBuffer())
+        .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer));
+}
+
+// Load all sounds
+Promise.all([
+    loadSound('8-bit-retro-game-music-233964.mp3'),
+    loadSound('attack-laser-128280.mp3'),
+    loadSound('retro-video-game-death-95730.mp3'),
+]).then(([bgMusic, shoot, hit]) => {
+    backgroundMusic = bgMusic;
+    shootSound = shoot;
+    hitSound = hit;
+    // Start background music
+    playBackgroundMusic();
+});
+
+// Play background music
+function playBackgroundMusic() {
+    const source = audioContext.createBufferSource();
+    source.buffer = backgroundMusic;
+    source.connect(audioContext.destination);
+    source.loop = true;
+    source.start();
+}
+
+// Play sound effect
+function playSoundEffect(buffer) {
+    const source = audioContext.createBufferSource();
+    source.buffer = buffer;
+    source.connect(audioContext.destination);
+    source.start();
+}
+
+
 window.addEventListener('click', (event)=>{
     const angle = Math.atan2(event.clientY - canvas.height/2 , event.clientX - canvas.width/2);
     const velocity = {
@@ -215,11 +274,16 @@ window.addEventListener('click', (event)=>{
     }
     projectiles.push(new Projectile(innerWidth/2,innerHeight/2,6,'white',velocity)
 );
+    playSoundEffect(shootSound);
 });
 
 startGame.addEventListener("click", ()=>{
-    console.log("fnjesg")
+    init();
+    animate();
+    spawn();
+    startpanel.style.display = 'none';
+    if (audioContext.state === 'suspended') {
+        audioContext.resume();
+    }
 })
 
-animate();
-spawn()
