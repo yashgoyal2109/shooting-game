@@ -1,0 +1,46 @@
+body {
+    margin: 0;
+    background-color: black;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    filter: blur(1.8px);
+}
+.cool {
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+    padding: 15px 30px;
+    border: 2px solid white;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+.cool:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    z-index: -1;
+}
+.cool:hover:before {
+    left: 0;
+}
+.cool:hover {
+    color: #000;
+    background-color: white;
+}

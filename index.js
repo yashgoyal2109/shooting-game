@@ -237,9 +237,9 @@ function loadSound(url) {
 
 // Load all sounds
 Promise.all([
-    loadSound('8-bit-retro-game-music-233964.mp3'),
-    loadSound('attack-laser-128280.mp3'),
-    loadSound('retro-video-game-death-95730.mp3'),
+    loadSound('sounds/background.mp3'),
+    loadSound('sounds/laser.mp3'),
+    loadSound('sounds/death.mp3'),
 ]).then(([bgMusic, shoot, hit]) => {
     backgroundMusic = bgMusic;
     shootSound = shoot;
