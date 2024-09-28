@@ -13,8 +13,9 @@ canvas {
     top: 0;
     left: 0;
     z-index: -1;
-    filter: blur(1.8px);
+    filter: blur(1px);
 }
+
 .cool {
     font-size: 24px;
     color: white;

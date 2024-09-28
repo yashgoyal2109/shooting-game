@@ -134,8 +134,8 @@ function spawn() {
         const color =  `hsl(${Math.random() * 360}, 50%, 50%)`
         const angle = Math.atan2(canvas.height/2 - y ,canvas.width/2 - x);
         const velocity = {
-            x : Math.cos(angle),
-            y : Math.sin(angle)
+            x : 3*Math.cos(angle),
+            y : 3*Math.sin(angle)
         }
         enemies.push(new Enemy(x,y,radius,color,velocity))
     },1000) 
@@ -269,8 +269,8 @@ function playSoundEffect(buffer) {
 window.addEventListener('click', (event)=>{
     const angle = Math.atan2(event.clientY - canvas.height/2 , event.clientX - canvas.width/2);
     const velocity = {
-        x : 8*Math.cos(angle),
-        y : 8*Math.sin(angle)
+        x : 20*Math.cos(angle),
+        y : 20*Math.sin(angle)
     }
     projectiles.push(new Projectile(innerWidth/2,innerHeight/2,6,'white',velocity)
 );
