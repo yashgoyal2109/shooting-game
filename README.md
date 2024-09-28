@@ -15,13 +15,7 @@ This is a 2D canvas-based shooting game where a player shoots projectiles at ran
 - [Technologies Used](#technologies-used)
 - [How to Run the Game](#how-to-run-the-game)
 - [Game Instructions](#game-instructions)
-- [Folder Structure](#folder-structure)
-- [How the Game Works](#how-the-game-works)
-- [Customization](#customization)
 - [Known Issues](#known-issues)
-- [License](#license)
-- [Contributions](#contributions)
-- [Acknowledgments](#acknowledgments)
 
 ## Technologies Used
 - **HTML5**: Structuring the game layout.
@@ -34,3 +28,22 @@ To play the game locally, follow these steps:
 1. **Clone or download** the repository:
    ```bash
    git clone https://github.com/your-username/canvas-shooting-game.git
+
+2. **Open the home.html file in a web browser:** 
+- Navigate to the downloaded/cloned directory.
+- Double-click on home.html, or use your browser's "Open file" option.
+
+3. **Start Playing:** 
+- Click the "Go To Game" button and click on "Start Game" to begin the game.
+- Use mouse clicks to shoot projectiles at the approaching enemies.
+
+## Game Instructions
+1. **Player**: A circle positioned in the center of the canvas represents the player.
+2. **Control**: Click anywhere on the canvas to shoot projectiles towards that location.
+3. **Enemies**: Randomly spawn from the edges and move towards the player.
+4. **Goal**: Destroy enemies by hitting them with projectiles to earn points.
+5. **End Game**: The game ends if an enemy collides with the player, and the final score is displayed.
+
+## Known Issues
+1. **Browser Audio Limitations**: Some browsers may block audio from playing until the user interacts with the page (clicks a button, etc.).
+2. **Performance**: High particle counts may cause performance issues on lower-end devices, especially during multiple explosions.
